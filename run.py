@@ -53,9 +53,11 @@ if sys.argv[2] == 'merge':
             out = Image.new("RGBA", image.size, (255, 255, 255, 255))
             out.paste(image)
             out.putalpha(alpha)
+            try:
+                out.save(str(images_merged) + '/' + '/'.join(file.parts[1:-1]) + '/' + str(file.stem) + '.' + sys.argv[3])
+            except IndexError:
+                out.save(str(images_merged) + '/' + '/'.join(file.parts[1:-1]) + '/' + str(file.stem)+ '.tga')
         except FileNotFoundError:
             out = Image.open(file)
-        try:
-            out.save(str(images_merged) + '/' + '/'.join(file.parts[1:-1]) + '/' + str(file.stem) + '.' + sys.argv[3])
-        except IndexError:
             out.save(str(images_merged) + '/' + '/'.join(file.parts[1:-1]) + '/' + str(file.name))
+
